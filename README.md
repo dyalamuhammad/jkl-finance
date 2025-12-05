@@ -1,2 +1,2 @@
-username : marketing@test.com
+email : marketing@test.com
 password : 123

@@ -1,24 +1,67 @@
 {{template "layouts/base.html" .}}
 {{define "content"}}
 
-<div class="bg-white p-6 shadow rounded">
+<div class="bg-white p-6 shadow rounded max-w-2xl mx-auto">
+    <h2 class="text-xl font-semibold mb-4">{{.Title}}</h2>
 
-    <h2 class="text-xl font-semibold mb-4">Approval Detail</h2>
+    <div class="space-y-4 mb-6">
+        <div class="border-b pb-2">
+            <label class="text-gray-600 font-medium">ID Pengajuan:</label>
+            <p class="text-gray-800">{{.Data.ID}}</p>
+        </div>
+        <div class="border-b pb-2">
+            <label class="text-gray-600 font-medium">Nama Konsumen:</label>
+            <p class="text-gray-800">{{.Data.Nama}}</p>
+        </div>
+        <div class="border-b pb-2">
+            <label class="text-gray-600 font-medium">NIK:</label>
+            <p class="text-gray-800">{{.Data.NIK}}</p>
+        </div>
+        <div class="border-b pb-2">
+            <label class="text-gray-600 font-medium">Kendaraan:</label>
+            <p class="text-gray-800">{{.Data.Kendaraan}}</p>
+        </div>
+        <div class="border-b pb-2">
+            <label class="text-gray-600 font-medium">Down Payment (DP):</label>
+            <p class="text-gray-800">{{.Data.DP}}</p>
+        </div>
+        <div class="border-b pb-2">
+            <label class="text-gray-600 font-medium">Tenor:</label>
+            <p class="text-gray-800">{{.Data.Tenor}} bulan</p>
+        </div>
+        <div class="border-b pb-2">
+            <label class="text-gray-600 font-medium">Status:</label>
+            <span class="px-2 py-1 rounded text-sm bg-yellow-200 text-yellow-800">{{.Data.Status}}</span>
+        </div>
+    </div>
 
-    <p><b>Nama Konsumen:</b> {{.Data.Nama}}</p>
-    <p><b>NIK:</b> {{.Data.NIK}}</p>
-    <p><b>Kendaraan:</b> {{.Data.Kendaraan}}</p>
-    <p><b>DP:</b> {{.Data.DP}}</p>
-    <p><b>Tenor:</b> {{.Data.Tenor}} bulan</p>
+    <div class="mt-6">
+        <h3 class="font-semibold mb-3">Aksi Approval:</h3>
+        <div class="flex gap-4">
+            <form action="/approval/{{.Data.ID}}/approve" method="POST" class="inline">
+                <div class="mb-3">
+                    <label class="block mb-1 text-gray-700">Catatan (opsional):</label>
+                    <textarea name="catatan" class="w-full border p-2 rounded" rows="3" placeholder="Masukkan catatan approval..."></textarea>
+                </div>
+                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded">
+                    Setujui Pengajuan
+                </button>
+            </form>
 
-    <form action="/approval/submit/{{.Data.ID}}" method="POST" class="mt-6 flex gap-4">
-        <button name="status" value="Disetujui"
-            class="bg-green-600 text-white px-4 py-2 rounded">Setujui</button>
-
-        <button name="status" value="Ditolak"
-            class="bg-red-600 text-white px-4 py-2 rounded">Tolak</button>
-    </form>
-
+            <form action="/approval/{{.Data.ID}}/reject" method="POST" class="inline">
+                <div class="mb-3">
+                    <label class="block mb-1 text-gray-700">Catatan (opsional):</label>
+                    <textarea name="catatan" class="w-full border p-2 rounded" rows="3" placeholder="Masukkan alasan penolakan..."></textarea>
+                </div>
+                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded">
+                    Tolak Pengajuan
+                </button>
+            </form>
+        </div>
+        <div class="mt-4">
+            <a href="/approval" class="text-blue-600 hover:underline">← Kembali ke List Approval</a>
+        </div>
+    </div>
 </div>
 
 {{end}}

@@ -7,11 +7,7 @@ import (
 )
 
 func init() {
-	// Auth
 	web.Router("/", &controllers.AuthController{}, "get:Login;post:Login")
-
-    // ROUTING PENGAJUAN
-    web.Router("/pengajuan", &controllers.PengajuanController{}, "get:List")
 
 	web.Router("/pengajuan", &controllers.PengajuanController{}, "get:Index")
 	web.Router("/pengajuan/new", &controllers.PengajuanController{}, "get:New")
@@ -28,14 +24,10 @@ func init() {
 	web.Router("/dealer/delete/:id", &controllers.DealerController{}, "post:Delete")
 
 	web.Router("/backoffice", &controllers.BackofficeController{}, "get:Index")
-	web.Router("/backoffice/new", &controllers.BackofficeController{}, "get:New")
-	web.Router("/backoffice/create", &controllers.BackofficeController{}, "post:Create")
-	web.Router("/backoffice/edit/:id", &controllers.BackofficeController{}, "get:Edit")
-	web.Router("/backoffice/update/:id", &controllers.BackofficeController{}, "post:Update")
-	web.Router("/backoffice/delete/:id", &controllers.BackofficeController{}, "post:Delete")
+	web.Router("/backoffice/doc/:id", &controllers.BackofficeController{}, "get:Doc")
 
-
-	// Approval
+	web.Router("/approval", &controllers.ApprovalController{}, "get:Index")
+	web.Router("/approval/detail/:id", &controllers.ApprovalController{}, "get:Detail")
 	web.Router("/approval/:id/approve", &controllers.ApprovalController{}, "post:Approve")
 	web.Router("/approval/:id/reject", &controllers.ApprovalController{}, "post:Reject")
 }

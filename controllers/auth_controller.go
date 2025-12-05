@@ -9,17 +9,14 @@ type AuthController struct {
 }
 
 func (c *AuthController) Login() {
-	// Jika GET -> tampilkan halaman login
 	if c.Ctx.Input.Method() == "GET" {
 		c.TplName = "auth/login.html"
 		return
 	}
 
-	// Jika POST -> proses login
 	email := c.GetString("email")
 	password := c.GetString("password")
 
-	// Dummy user (sementara)
 	dummyUsers := []map[string]string{
 		{"email": "marketing@test.com", "password": "123", "role": "marketing"},
 		{"email": "atasan@test.com", "password": "123", "role": "approver"},
@@ -40,20 +37,19 @@ func (c *AuthController) Login() {
 		return
 	}
 
-	// Simpan session
-	c.SetSession("email", loggedUser["email"])
-	c.SetSession("role", loggedUser["role"])
+	if web.BConfig.WebConfig.Session.SessionOn {
+		c.SetSession("email", loggedUser["email"])
+		c.SetSession("role", loggedUser["role"])
+	}
 
-	// Redirect sesuai role
 	switch loggedUser["role"] {
 	case "marketing":
 		c.Redirect("/pengajuan", 302)
 	case "approver":
 		c.Redirect("/approval", 302)
 	case "backoffice":
-		c.Redirect("/backoffice/doc", 302)
+		c.Redirect("/backoffice", 302)
 	default:
 		c.Redirect("/", 302)
 	}
 }
-

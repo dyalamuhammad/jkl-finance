@@ -1,0 +1,29 @@
+{{template "layouts/base.html" .}}
+{{define "content"}}
+<div class="bg-white p-6 shadow rounded max-w-md mx-auto">
+    <h2 class="text-xl font-semibold mb-4">{{.Title}}</h2>
+
+    <form action="/dealer/create" method="POST">
+        <div class="mb-4">
+            <label class="block mb-1 text-gray-700">Nama Dealer</label>
+            <input type="text" name="nama" class="w-full border p-2 rounded" required>
+        </div>
+
+        <div class="mb-4">
+            <label class="block mb-1 text-gray-700">Alamat</label>
+            <input type="text" name="alamat" class="w-full border p-2 rounded" required>
+        </div>
+
+        <div class="mb-4">
+            <label class="block mb-1 text-gray-700">Telepon</label>
+            <input type="text" name="telepon" class="w-full border p-2 rounded" required>
+        </div>
+
+        <div class="flex gap-2">
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Simpan</button>
+            <a href="/dealer" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Batal</a>
+        </div>
+    </form>
+</div>
+{{end}}
+

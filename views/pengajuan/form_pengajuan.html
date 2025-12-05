@@ -3,36 +3,41 @@
 <div class="grid grid-cols-2 gap-4">
 
     <div>
-        <label>Nama Konsumen</label>
-        <input type="text" name="nama" value="{{.Data.Nama}}" class="w-full border p-2 rounded">
+        <label class="block mb-1 text-gray-700">Nama Konsumen</label>
+        <input type="text" name="nama" value="{{if .Data}}{{.Data.Nama}}{{end}}" class="w-full border p-2 rounded" required>
     </div>
 
     <div>
-        <label>NIK</label>
-        <input type="text" name="nik" value="{{.Data.NIK}}" class="w-full border p-2 rounded">
+        <label class="block mb-1 text-gray-700">NIK</label>
+        <input type="text" name="nik" value="{{if .Data}}{{.Data.NIK}}{{end}}" class="w-full border p-2 rounded" required>
     </div>
 
     <div>
-        <label>Nama Pasangan</label>
-        <input type="text" name="pasangan" value="{{.Data.Pasangan}}" class="w-full border p-2 rounded">
+        <label class="block mb-1 text-gray-700">Nama Pasangan</label>
+        <input type="text" name="pasangan" value="{{if .Data}}{{.Data.Pasangan}}{{end}}" class="w-full border p-2 rounded">
     </div>
 
     <div>
-        <label>Kendaraan</label>
-        <input type="text" name="kendaraan" value="{{.Data.Kendaraan}}" class="w-full border p-2 rounded">
+        <label class="block mb-1 text-gray-700">Kendaraan</label>
+        <input type="text" name="kendaraan" value="{{if .Data}}{{.Data.Kendaraan}}{{end}}" class="w-full border p-2 rounded" required>
     </div>
 
     <div>
-        <label>Down Payment</label>
-        <input type="number" name="dp" value="{{.Data.DP}}" class="w-full border p-2 rounded">
+        <label class="block mb-1 text-gray-700">Down Payment</label>
+        <input type="number" name="dp" value="{{if .Data}}{{.Data.DP}}{{end}}" class="w-full border p-2 rounded" required>
     </div>
 
     <div>
-        <label>Tenor (bulan)</label>
-        <input type="number" name="tenor" value="{{.Data.Tenor}}" class="w-full border p-2 rounded">
+        <label class="block mb-1 text-gray-700">Tenor (bulan)</label>
+        <input type="number" name="tenor" value="{{if .Data}}{{.Data.Tenor}}{{end}}" class="w-full border p-2 rounded" required>
+    </div>
+
+    <div class="col-span-2">
+        <label class="block mb-1 text-gray-700">Keterangan</label>
+        <textarea name="keterangan" class="w-full border p-2 rounded" rows="3" required>{{if .Data}}{{.Data.Keterangan}}{{end}}</textarea>
     </div>
 </div>
 
-<button class="mt-6 bg-green-600 text-white px-4 py-2 rounded">Simpan</button>
+<button type="submit" class="mt-6 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Simpan</button>
 
 {{end}}

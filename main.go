@@ -7,13 +7,12 @@ import (
 )
 
 func main() {
-
-	// Title global (opsional)
 	web.BConfig.WebConfig.Session.SessionOn = true
+	web.BConfig.WebConfig.Session.SessionName = "jklfinance_session"
+	web.BConfig.WebConfig.Session.SessionGCMaxLifetime = 3600
+	web.BConfig.WebConfig.Session.SessionAutoSetCookie = true
+	web.BConfig.WebConfig.Session.SessionDomain = ""
 
-	// Set folder views
 	web.SetViewsPath("views")
-
-	// Run server
 	web.Run()
 }

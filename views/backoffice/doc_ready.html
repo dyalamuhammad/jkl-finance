@@ -2,12 +2,42 @@
 {{define "content"}}
 
 <div class="bg-white p-6 shadow rounded">
+    <div id="document-content" class="bg-white p-6">
+        <h2 class="text-xl font-semibold mb-4">Dokumen Siap Dicetak</h2>
 
-    <h2 class="text-xl font-semibold mb-4">Dokumen Siap Dicetak</h2>
+        <div class="mb-6">
+            <p class="mb-2"><strong>ID Pengajuan:</strong> {{.Data.ID}}</p>
+            <p class="mb-2"><strong>Nama Konsumen:</strong> {{.Data.Nama}}</p>
+            <p class="mb-2"><strong>NIK:</strong> {{.Data.NIK}}</p>
+            <p class="mb-2"><strong>Kendaraan:</strong> {{.Data.Kendaraan}}</p>
+            <p class="mb-2"><strong>Down Payment:</strong> {{.Data.DP}}</p>
+            <p class="mb-2"><strong>Tenor:</strong> {{.Data.Tenor}} bulan</p>
+            <p class="mb-2"><strong>Tanggal:</strong> {{.Data.Tanggal}}</p>
+            <p class="mb-2"><strong>Status:</strong> {{.Data.Status}}</p>
+        </div>
+    </div>
 
-    <p class="mb-4">Pengajuan: <b>{{.Data.ID}}</b></p>
-
-    <a class="bg-blue-600 text-white px-4 py-2 rounded">Print Dokumen</a>
+    <div class="mt-6">
+        <button onclick="exportToPDF()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded">
+            Export ke PDF
+        </button>
+    </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function exportToPDF() {
+    const element = document.getElementById('document-content');
+    const opt = {
+        margin: 1,
+        filename: 'dokumen-pengajuan-{{.Data.ID}}.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+    
+    html2pdf().set(opt).from(element).save();
+}
+</script>
 
 {{end}}

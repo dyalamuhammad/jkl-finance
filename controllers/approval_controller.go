@@ -3,9 +3,6 @@ package controllers
 import (
 	"strconv"
 
-	"jkl-finance/models"
-
-	"github.com/beego/beego/v2/client/orm"
 	"github.com/beego/beego/v2/server/web"
 )
 
@@ -13,60 +10,65 @@ type ApprovalController struct {
 	web.Controller
 }
 
-// Approve pengajuan
+func (c *ApprovalController) Index() {
+	pendingPengajuans := GetPengajuanByStatus("Pending")
+	var pengajuans []map[string]interface{}
+	for _, p := range pendingPengajuans {
+		pengajuans = append(pengajuans, map[string]interface{}{
+			"ID":        p.ID,
+			"Nama":      p.Nama,
+			"Kendaraan": p.Kendaraan,
+			"Status":    p.Status,
+		})
+	}
+
+	c.Data["Title"] = "Approval Pengajuan"
+	c.Data["Pengajuans"] = pengajuans
+	c.TplName = "approval/approval_list.html"
+}
+
+func (c *ApprovalController) Detail() {
+	idStr := c.Ctx.Input.Param(":id")
+	id, _ := strconv.Atoi(idStr)
+
+	p := GetPengajuanByID(id)
+	if p == nil {
+		c.Data["Message"] = "Data tidak ditemukan"
+		c.TplName = "errors/404.html"
+		return
+	}
+
+	data := map[string]interface{}{
+		"ID":        p.ID,
+		"Nama":      p.Nama,
+		"NIK":       p.NIK,
+		"Kendaraan": p.Kendaraan,
+		"DP":        FormatRupiah(p.DP),
+		"Tenor":     p.Tenor,
+		"Status":    p.Status,
+	}
+
+	c.Data["Title"] = "Review Pengajuan"
+	c.Data["Data"] = data
+	c.TplName = "approval/approval_detail.html"
+}
+
 func (c *ApprovalController) Approve() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 
 	catatan := c.GetString("catatan")
-	approverId := 0
-	if sess := c.GetSession("user_id"); sess != nil {
-		approverId = sess.(int)
-	}
-
-	o := orm.NewOrm()
-	p := models.Pengajuan{Id: id}
-	if err := o.Read(&p); err == nil {
-		p.Status = "approved"
-		o.Update(&p)
-
-		ap := models.Approval{
-			PengajuanId: id,
-			ApproverId:  approverId,
-			Status:      "approved",
-			Catatan:     catatan,
-		}
-		o.Insert(&ap)
-	}
-
-	c.Redirect("/pengajuan/list", 302)
+	UpdatePengajuanStatus(id, "Approved")
+	_ = catatan
+	c.Redirect("/approval", 302)
 }
 
-// Reject pengajuan
 func (c *ApprovalController) Reject() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 
 	catatan := c.GetString("catatan")
-	approverId := 0
-	if sess := c.GetSession("user_id"); sess != nil {
-		approverId = sess.(int)
-	}
-
-	o := orm.NewOrm()
-	p := models.Pengajuan{Id: id}
-	if err := o.Read(&p); err == nil {
-		p.Status = "rejected"
-		o.Update(&p)
-
-		ap := models.Approval{
-			PengajuanId: id,
-			ApproverId:  approverId,
-			Status:      "rejected",
-			Catatan:     catatan,
-		}
-		o.Insert(&ap)
-	}
-
-	c.Redirect("/pengajuan/list", 302)
+	UpdatePengajuanStatus(id, "Rejected")
+	_ = catatan
+	c.Redirect("/approval", 302)
 }

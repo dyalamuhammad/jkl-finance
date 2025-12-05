@@ -2,14 +2,16 @@
 {{define "content"}}
 
 <div class="bg-white p-6 shadow rounded">
-    <h2 class="text-xl font-semibold mb-4">Approval Pengajuan (Atasan Marketing)</h2>
+    <h2 class="text-xl font-semibold mb-4">{{.Title}}</h2>
 
+    {{if .Pengajuans}}
     <table class="min-w-full text-left">
         <thead class="border-b font-semibold">
             <tr>
                 <th class="py-2">ID</th>
                 <th class="py-2">Nama Konsumen</th>
                 <th class="py-2">Kendaraan</th>
+                <th class="py-2">Status</th>
                 <th class="py-2">Aksi</th>
             </tr>
         </thead>
@@ -20,13 +22,19 @@
                 <td class="py-2">{{.ID}}</td>
                 <td class="py-2">{{.Nama}}</td>
                 <td class="py-2">{{.Kendaraan}}</td>
+                <td class="py-2">
+                    <span class="px-2 py-1 rounded text-sm bg-yellow-200 text-yellow-800">{{.Status}}</span>
+                </td>
                 <td>
-                    <a href="/approval/detail/{{.ID}}" class="text-blue-600 hover:underline">Review</a>
+                    <a href="/approval/detail/{{.ID}}" class="text-blue-600 hover:underline mr-3">Review</a>
                 </td>
             </tr>
             {{end}}
         </tbody>
     </table>
+    {{else}}
+    <p class="text-gray-500">Tidak ada pengajuan yang menunggu approval.</p>
+    {{end}}
 </div>
 
 {{end}}

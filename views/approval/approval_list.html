@@ -1,0 +1,32 @@
+{{template "layouts/base.html" .}}
+{{define "content"}}
+
+<div class="bg-white p-6 shadow rounded">
+    <h2 class="text-xl font-semibold mb-4">Approval Pengajuan (Atasan Marketing)</h2>
+
+    <table class="min-w-full text-left">
+        <thead class="border-b font-semibold">
+            <tr>
+                <th class="py-2">ID</th>
+                <th class="py-2">Nama Konsumen</th>
+                <th class="py-2">Kendaraan</th>
+                <th class="py-2">Aksi</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{range .Pengajuans}}
+            <tr class="border-b hover:bg-gray-50">
+                <td class="py-2">{{.ID}}</td>
+                <td class="py-2">{{.Nama}}</td>
+                <td class="py-2">{{.Kendaraan}}</td>
+                <td>
+                    <a href="/approval/detail/{{.ID}}" class="text-blue-600 hover:underline">Review</a>
+                </td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</div>
+
+{{end}}

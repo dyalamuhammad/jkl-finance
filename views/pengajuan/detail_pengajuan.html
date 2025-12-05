@@ -1,0 +1,26 @@
+{{template "layouts/base.html" .}}
+{{define "content"}}
+
+<div class="bg-white p-6 shadow rounded">
+
+    <h2 class="text-xl font-semibold mb-4">Detail Pengajuan</h2>
+
+    <div class="grid grid-cols-2 gap-4">
+
+        <div><b>Nama:</b> {{.Data.Nama}}</div>
+        <div><b>NIK:</b> {{.Data.NIK}}</div>
+        <div><b>Pasangan:</b> {{.Data.Pasangan}}</div>
+        <div><b>Kendaraan:</b> {{.Data.Kendaraan}}</div>
+        <div><b>DP:</b> {{.Data.DP}}</div>
+        <div><b>Tenor:</b> {{.Data.Tenor}} bulan</div>
+        <div><b>Status:</b> {{.Data.Status}}</div>
+
+    </div>
+
+    <div class="mt-6">
+        <a href="/pengajuan/edit/{{.Data.ID}}" class="px-4 py-2 bg-blue-600 text-white rounded">Edit</a>
+    </div>
+
+</div>
+
+{{end}}

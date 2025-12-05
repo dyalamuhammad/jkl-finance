@@ -1,0 +1,10 @@
+{{template "layouts/base.html" .}}
+{{define "content"}}
+<div class="bg-white p-6 shadow rounded">
+    <h2 class="text-xl font-semibold mb-4">Edit Pengajuan</h2>
+
+    <form action="/pengajuan/update/{{.Data.ID}}" method="POST">
+        {{template "pengajuan/form_pengajuan.html" .}}
+    </form>
+</div>
+{{end}}

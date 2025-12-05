@@ -1,0 +1,38 @@
+{{define "pengajuan/form_pengajuan.html"}}
+
+<div class="grid grid-cols-2 gap-4">
+
+    <div>
+        <label>Nama Konsumen</label>
+        <input type="text" name="nama" value="{{.Data.Nama}}" class="w-full border p-2 rounded">
+    </div>
+
+    <div>
+        <label>NIK</label>
+        <input type="text" name="nik" value="{{.Data.NIK}}" class="w-full border p-2 rounded">
+    </div>
+
+    <div>
+        <label>Nama Pasangan</label>
+        <input type="text" name="pasangan" value="{{.Data.Pasangan}}" class="w-full border p-2 rounded">
+    </div>
+
+    <div>
+        <label>Kendaraan</label>
+        <input type="text" name="kendaraan" value="{{.Data.Kendaraan}}" class="w-full border p-2 rounded">
+    </div>
+
+    <div>
+        <label>Down Payment</label>
+        <input type="number" name="dp" value="{{.Data.DP}}" class="w-full border p-2 rounded">
+    </div>
+
+    <div>
+        <label>Tenor (bulan)</label>
+        <input type="number" name="tenor" value="{{.Data.Tenor}}" class="w-full border p-2 rounded">
+    </div>
+</div>
+
+<button class="mt-6 bg-green-600 text-white px-4 py-2 rounded">Simpan</button>
+
+{{end}}

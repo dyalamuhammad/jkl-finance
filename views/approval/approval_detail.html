@@ -1,0 +1,24 @@
+{{template "layouts/base.html" .}}
+{{define "content"}}
+
+<div class="bg-white p-6 shadow rounded">
+
+    <h2 class="text-xl font-semibold mb-4">Approval Detail</h2>
+
+    <p><b>Nama Konsumen:</b> {{.Data.Nama}}</p>
+    <p><b>NIK:</b> {{.Data.NIK}}</p>
+    <p><b>Kendaraan:</b> {{.Data.Kendaraan}}</p>
+    <p><b>DP:</b> {{.Data.DP}}</p>
+    <p><b>Tenor:</b> {{.Data.Tenor}} bulan</p>
+
+    <form action="/approval/submit/{{.Data.ID}}" method="POST" class="mt-6 flex gap-4">
+        <button name="status" value="Disetujui"
+            class="bg-green-600 text-white px-4 py-2 rounded">Setujui</button>
+
+        <button name="status" value="Ditolak"
+            class="bg-red-600 text-white px-4 py-2 rounded">Tolak</button>
+    </form>
+
+</div>
+
+{{end}}

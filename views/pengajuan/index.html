@@ -1,0 +1,49 @@
+{{template "layouts/base.html" .}}
+
+{{define "content"}}
+<div class="p-6">
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-semibold">Daftar Pengajuan Kredit</h1>
+        <a href="/pengajuan/new" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">Buat Pengajuan Baru</a>
+    </div>
+
+    <div class="bg-white shadow rounded p-4">
+        <table class="min-w-full text-left text-gray-700">
+            <thead class="border-b font-medium">
+                <tr>
+                    <th class="py-3">ID</th>
+                    <th class="py-3">Nama Konsumen</th>
+                    <th class="py-3">NIK</th>
+                    <th class="py-3">Kendaraan</th>
+                    <th class="py-3">Status</th>
+                    <th class="py-3">Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {{range .Pengajuans}}
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3">{{.ID}}</td>
+                    <td class="py-3">{{.Nama}}</td>
+                    <td class="py-3">{{.NIK}}</td>
+                    <td class="py-3">{{.Kendaraan}}</td>
+                    <td class="py-3">
+                        <span class="px-2 py-1 rounded text-sm
+                            {{if eq .Status "Menunggu Approval"}} bg-yellow-200 text-yellow-800
+                            {{else if eq .Status "Disetujui"}} bg-green-200 text-green-800
+                            {{else}} bg-gray-200 text-gray-800
+                            {{end}}">
+                            {{.Status}}
+                        </span>
+                    </td>
+                    <td class="py-3">
+                        <a href="/pengajuan/detail/{{.ID}}" class="text-blue-600 hover:underline mr-3">Detail</a>
+                        <a href="/pengajuan/edit/{{.ID}}" class="text-green-600 hover:underline mr-3">Edit</a>
+                    </td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+</div>
+{{end}}
